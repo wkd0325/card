@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>장은재 | 데이터사이언티스트 웹 명함</title>
+  
+  <!-- Pretendard Font -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 밝고 화사한 오로라 빛무리 배경 -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- 메인 카드 컨테이너 -->
+  <main class="card-container">
+    <div class="business-card" id="businessCard">
+      
+      <!-- 상단 액션 바 (상태 뱃지 & 액션 버튼) -->
+      <div class="card-top-bar">
+        <span class="badge-status">
+          <span class="pulse-dot"></span> Available for Projects
+        </span>
+        <div class="top-actions">
+          <button class="icon-btn" id="qrBtn" title="QR 코드 보기" aria-label="QR 코드 보기">
+            <i class="fa-solid fa-qrcode"></i>
+          </button>
+          <button class="icon-btn" id="shareBtn" title="링크 공유하기" aria-label="링크 공유하기">
+            <i class="fa-solid fa-share-nodes"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 프로필 캐릭터 영역 (잘생긴 20대 청년 흑발 데이터사이언티스트) -->
+      <div class="avatar-wrapper">
+        <div class="avatar-ring"></div>
+        <div class="avatar-box" id="avatarBox" title="클릭하면 인사해요!">
+          <svg class="character-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- 피부 그라데이션 (밝고 건강한 톤) -->
+              <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FFEBE5" />
+                <stop offset="100%" stop-color="#FCD5C8" />
+              </linearGradient>
+              
+              <!-- 세련된 칠흑빛 흑발 그라데이션 -->
+              <linearGradient id="blackHairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#242831" />
+                <stop offset="50%" stop-color="#181B22" />
+                <stop offset="100%" stop-color="#0E1015" />
+              </linearGradient>
+
+              <!-- 의상 그라데이션 (스마트 캐주얼 코발트 네이비 니트) -->
+              <linearGradient id="knitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2563EB" />
+                <stop offset="100%" stop-color="#1D4ED8" />
+              </linearGradient>
+
+              <!-- 캐릭터 배경 소프트 그라데이션 -->
+              <linearGradient id="bgLightGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#F0F7FF" />
+                <stop offset="100%" stop-color="#E0EFFF" />
+              </linearGradient>
+            </defs>
+
+            <!-- 원형 배경 -->
+            <rect width="200" height="200" fill="url(#bgLightGrad)" />
+
+            <!-- 상체 의상 (스마트 캐주얼 니트 & 이너 셔츠) -->
+            <!-- 셔츠 화이트 카라 -->
+            <path d="M 82 142 L 100 162 L 78 160 Z" fill="#FFFFFF" />
+            <path d="M 118 142 L 100 162 L 122 160 Z" fill="#E2E8F0" />
+            
+            <!-- 니트 몸체 -->
+            <path d="M 40 192 C 40 156 68 144 100 144 C 132 144 160 156 160 192 Z" fill="url(#knitGrad)" />
+            <!-- V넥 / 라운드 넥 라인 -->
+            <path d="M 78 144 C 88 160 112 160 122 144 C 114 153 86 153 78 144 Z" fill="#1E40AF" />
+
+            <!-- 목 -->
+            <rect x="88" y="120" width="24" height="28" rx="6" fill="#F7C7B7" />
+            <!-- 목 그림자 -->
+            <path d="M 88 126 C 94 132 106 132 112 126 L 112 133 C 106 137 94 137 88 133 Z" fill="#ECAFA0" opacity="0.6" />
+
+            <!-- 귀 -->
+            <circle cx="58" cy="100" r="10" fill="url(#skinGrad)" />
+            <circle cx="142" cy="100" r="10" fill="url(#skinGrad)" />
+            <path d="M 59 97 C 57 101 60 105 61 103" stroke="#E3A898" stroke-width="1.8" stroke-linecap="round" fill="none" />
+            <path d="M 141 97 C 143 101 140 105 139 103" stroke="#E3A898" stroke-width="1.8" stroke-linecap="round" fill="none" />
+
+            <!-- 얼굴 턱선 (샤프하고 호감형인 20대 청년 턱선) -->
+            <path d="M 64 88 C 64 124 84 140 100 140 C 116 140 136 124 136 88 C 136 56 64 56 64 88 Z" fill="url(#skinGrad)" />
+
+            <!-- 훈남 일자 눈썹 (단정하고 세련됨) -->
+            <path d="M 72 82 Q 83 77 94 82" stroke="#181B22" stroke-width="3" stroke-linecap="round" fill="none" />
+            <path d="M 106 82 Q 117 77 128 82" stroke="#181B22" stroke-width="3" stroke-linecap="round" fill="none" />
+
+            <!-- 매력적인 눈매 (쌍꺼풀 라인) -->
+            <path d="M 73 89 Q 82 86 92 90" stroke="#C98B7C" stroke-width="1.3" stroke-linecap="round" fill="none" />
+            <path d="M 108 90 Q 118 86 127 89" stroke="#C98B7C" stroke-width="1.3" stroke-linecap="round" fill="none" />
+
+            <!-- 맑고 또렷한 눈 (깜빡임 애니메이션) -->
+            <g class="character-eyes">
+              <!-- 왼쪽 눈 -->
+              <ellipse cx="83" cy="96" rx="7.5" ry="5.5" fill="#181B22" />
+              <!-- 홍채 디테일 & 반사광 (초롱초롱한 눈망울) -->
+              <ellipse cx="83" cy="96" rx="5" ry="5" fill="#2D3748" />
+              <circle cx="81.5" cy="94" r="2.2" fill="#FFFFFF" />
+              <circle cx="85" cy="97" r="1.1" fill="#FFFFFF" opacity="0.9" />
+
+              <!-- 오른쪽 눈 -->
+              <ellipse cx="117" cy="96" rx="7.5" ry="5.5" fill="#181B22" />
+              <!-- 홍채 디테일 & 반사광 -->
+              <ellipse cx="117" cy="96" rx="5" ry="5" fill="#2D3748" />
+              <circle cx="115.5" cy="94" r="2.2" fill="#FFFFFF" />
+              <circle cx="119" cy="97" r="1.1" fill="#FFFFFF" opacity="0.9" />
+            </g>
+
+            <!-- 오똑한 콧대와 코끝 -->
+            <path d="M 100 93 L 98 106 L 102 106" stroke="#DB8C79" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+            <!-- 매력적인 미소 (살짝 올라간 입꼬리) -->
+            <path class="character-mouth" d="M 90 117 Q 100 126 110 117" stroke="#C85A52" stroke-width="2.8" stroke-linecap="round" fill="none" />
+            <!-- 아랫입술 그림자 살짝 -->
+            <path d="M 96 122 Q 100 124 104 122" stroke="#E6958B" stroke-width="1.5" stroke-linecap="round" fill="none" />
+
+            <!-- 자연스러운 생기 볼터치 -->
+            <ellipse cx="71" cy="107" rx="6.5" ry="3.5" fill="#FF8E8E" opacity="0.4" />
+            <ellipse cx="129" cy="107" rx="6.5" ry="3.5" fill="#FF8E8E" opacity="0.4" />
+
+            <!-- 세련된 20대 흑발 헤어스타일 (댄디/애즈 스타일) -->
+            <!-- 뒷머리 볼륨 베이스 -->
+            <path d="M 59 86 C 54 48 74 36 100 36 C 126 36 146 48 141 86 C 145 70 142 42 100 40 C 58 42 55 70 59 86 Z" fill="url(#blackHairGrad)" />
+            
+            <!-- 트렌디한 앞머리 & 옆머리 (자연스럽게 이마가 살짝 드러나는 훈남 스타일) -->
+            <path d="M 58 84 C 60 56 78 40 100 40 C 122 40 140 56 142 84 C 137 72 128 66 118 67 C 114 67 110 70 108 76 C 104 69 98 67 92 68 C 82 70 72 76 66 84 C 62 82 59 83 58 84 Z" fill="url(#blackHairGrad)" />
+            
+            <!-- 앞머리 결 & 가르마 디테일 라인 (입체감 부여) -->
+            <path d="M 108 76 C 112 85 118 85 124 74" fill="url(#blackHairGrad)" />
+            <path d="M 92 68 C 88 77 82 82 72 82" fill="url(#blackHairGrad)" />
+            
+            <!-- 흑발 헤어 광택 하이라이트 -->
+            <path d="M 75 50 Q 100 45 125 50" stroke="#3D4556" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8" />
+            <path d="M 80 55 Q 100 50 120 55" stroke="#4B5563" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6" />
+
+            <!-- 장식: 반짝이는 영감/데이터 스타 -->
+            <g class="sparkle-icon" transform="translate(148, 42) scale(0.85)">
+              <polygon points="10,0 13,7 20,10 13,13 10,20 7,13 0,10 7,7" fill="#3B82F6" />
+            </g>
+          </svg>
+        </div>
+
+        <!-- 캐릭터 말풍선 (클릭 시 인터랙션) -->
+        <div class="speech-bubble" id="speechBubble">
+          안녕하세요! 데이터로 통찰을 만드는 장은재입니다 ✨
+        </div>
+      </div>
+
+      <!-- 프로필 텍스트 정보 -->
+      <div class="profile-info">
+        <h1 class="user-name">장은재 <span class="en-name">Eunjae Jang</span></h1>
+        <div class="user-title">
+          <i class="fa-solid fa-chart-line title-icon"></i>
+          <span>데이터사이언티스트</span>
+          <span class="title-sub">Data Scientist</span>
+        </div>
+        
+        <p class="user-intro">
+          "복잡한 데이터 속에서 <strong>의미 있는 가치</strong>를 찾고,<br>
+          데이터 기반의 예측과 통찰로 더 나은 결정을 만듭니다."
+        </p>
+      </div>
+
+      <!-- 핵심 전문 분야 태그 -->
+      <div class="skills-tags">
+        <span class="tag"><i class="fa-brands fa-python"></i> Python</span>
+        <span class="tag"><i class="fa-solid fa-brain"></i> Machine Learning</span>
+        <span class="tag"><i class="fa-solid fa-chart-pie"></i> Data Analytics</span>
+        <span class="tag"><i class="fa-solid fa-database"></i> SQL / BigData</span>
+      </div>
+
+      <!-- 연락처 및 정보 목록 -->
+      <div class="contact-list">
+        <!-- 이메일 -->
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div class="contact-detail">
+            <span class="label">Email</span>
+            <a href="mailto:changej45@gmail.com" class="value link" id="emailLink">changej45@gmail.com</a>
+          </div>
+          <button class="copy-btn" data-copy="changej45@gmail.com" title="이메일 주소 복사" aria-label="이메일 복사">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+        </div>
+
+        <!-- 전화번호 -->
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <div class="contact-detail">
+            <span class="label">Phone</span>
+            <a href="tel:010-3705-3596" class="value link" id="phoneLink">010-3705-3596</a>
+          </div>
+          <button class="copy-btn" data-copy="010-3705-3596" title="전화번호 복사" aria-label="전화번호 복사">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 주요 CTA 버튼 (연락처 저장 & 메시지 보내기) -->
+      <div class="card-actions">
+        <button class="btn btn-primary" id="saveContactBtn">
+          <i class="fa-solid fa-address-card"></i>
+          <span>연락처 저장 (vCard)</span>
+        </button>
+        <a href="mailto:changej45@gmail.com?subject=[문의] 웹 명함을 통해 연락드립니다" class="btn btn-secondary">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>메일 보내기</span>
+        </a>
+      </div>
+
+      <!-- 명함 하단 푸터 -->
+      <footer class="card-footer">
+        <span>© 2026 Eunjae Jang. All rights reserved.</span>
+      </footer>
+    </div>
+  </main>
+
+  <!-- QR 코드 모달 -->
+  <div class="modal-overlay" id="qrModal">
+    <div class="modal-card">
+      <button class="modal-close" id="modalCloseBtn">&times;</button>
+      <h3 class="modal-title">스마트폰으로 명함 열기</h3>
+      <p class="modal-desc">QR 코드를 스캔하면 모바일 브라우저에서 바로 열립니다.</p>
+      <div class="qr-box" id="qrcode">
+        <!-- SVG QR Code -->
+        <svg viewBox="0 0 160 160" width="160" height="160" class="qr-svg">
+          <rect width="160" height="160" fill="#ffffff" rx="12"/>
+          <!-- Position Detection Patterns -->
+          <!-- Top-Left -->
+          <rect x="15" y="15" width="40" height="40" fill="#1e293b" rx="6" />
+          <rect x="22" y="22" width="26" height="26" fill="#ffffff" rx="3" />
+          <rect x="28" y="28" width="14" height="14" fill="#2563eb" rx="2" />
+          <!-- Top-Right -->
+          <rect x="105" y="15" width="40" height="40" fill="#1e293b" rx="6" />
+          <rect x="112" y="22" width="26" height="26" fill="#ffffff" rx="3" />
+          <rect x="118" y="28" width="14" height="14" fill="#2563eb" rx="2" />
+          <!-- Bottom-Left -->
+          <rect x="15" y="105" width="40" height="40" fill="#1e293b" rx="6" />
+          <rect x="22" y="112" width="26" height="26" fill="#ffffff" rx="3" />
+          <rect x="28" y="118" width="14" height="14" fill="#2563eb" rx="2" />
+          
+          <!-- Data dots -->
+          <g fill="#1e3a8a">
+            <rect x="65" y="18" width="8" height="8" rx="2"/>
+            <rect x="80" y="22" width="8" height="8" rx="2"/>
+            <rect x="65" y="35" width="8" height="8" rx="2"/>
+            <rect x="85" y="45" width="8" height="8" rx="2"/>
+            <rect x="20" y="65" width="8" height="8" rx="2"/>
+            <rect x="35" y="75" width="8" height="8" rx="2"/>
+            <rect x="50" y="65" width="8" height="8" rx="2"/>
+            <rect x="65" y="70" width="8" height="8" rx="2"/>
+            <rect x="80" y="62" width="8" height="8" rx="2"/>
+            <rect x="95" y="75" width="8" height="8" rx="2"/>
+            <rect x="110" y="65" width="8" height="8" rx="2"/>
+            <rect x="130" y="70" width="8" height="8" rx="2"/>
+            <rect x="65" y="90" width="8" height="8" rx="2"/>
+            <rect x="80" y="95" width="8" height="8" rx="2"/>
+            <rect x="100" y="90" width="8" height="8" rx="2"/>
+            <rect x="125" y="95" width="8" height="8" rx="2"/>
+            <rect x="70" y="115" width="8" height="8" rx="2"/>
+            <rect x="85" y="125" width="8" height="8" rx="2"/>
+            <rect x="105" y="115" width="8" height="8" rx="2"/>
+            <rect x="120" y="130" width="8" height="8" rx="2"/>
+            <rect x="135" y="115" width="8" height="8" rx="2"/>
+          </g>
+          <!-- Center Logo badge -->
+          <circle cx="80" cy="80" r="14" fill="#ffffff"/>
+          <circle cx="80" cy="80" r="11" fill="#2563eb"/>
+          <text x="80" y="85" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle" font-family="sans-serif">DS</text>
+        </svg>
+      </div>
+      <p class="modal-sub">Eunjae Jang • Data Scientist</p>
+    </div>
+  </div>
+
+  <!-- 토스트 알림 메시지 -->
+  <div class="toast" id="toast">복사되었습니다!</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
